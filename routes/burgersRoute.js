@@ -27,6 +27,13 @@ router.route('/')
 ;
 
 router.route('/:id')
+    .get(async (req, res) => {
+        const burger = await burgerController.getById(req.params.id);
+            if (!burger) {
+                res.status(404).json({message: "Aucun burger ne correspond à cette recherche."});
+            }
+            res.status(200).json(burger);
+    })
     .delete(async (req, res) => {
         const burger = await burgerController.remove(req.params.id);
         if (!burger) {

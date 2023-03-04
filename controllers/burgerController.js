@@ -6,6 +6,14 @@ const getAll = async () => {
     return burgers;
 };
 
+const getById = async (id) => {
+    const [burger, err] = await db.query("SELECT categories.name AS category, items.name AS item FROM categories INNER JOIN items ON categories.id = 2 AND categories.id = items.category", [id]);
+    if (!burger) {
+        return null;
+    }
+    return burger[0];
+};
+
 const add = async (data) => {
 
     const [burger, err] = await db.query("INSERT INTO items (name, description, price, image, category) VALUES (?, ?, ?, ?, ?)", [data.name, data.description, data.price, data.image, data.category]);
@@ -27,6 +35,7 @@ const remove = async (id) => {
 
 module.exports = {
     getAll,
+    getById,
     add,
     remove
 }
