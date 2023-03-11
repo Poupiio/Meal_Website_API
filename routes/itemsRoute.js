@@ -10,10 +10,22 @@ router.route('/')
         const items = await itemsController.getAll();
 
         if (!items) {
-            res.status(404).json({message: "Il n'y a aucun item pour le moment."});
+            res.status(404).json({message: "Il n'y a aucun produit disponible pour le moment."});
         }
 
         res.status(200).json(items);
+    })
+;
+
+router.route('/infos')
+    .get(async (req, res) => {
+        const infos = await itemsController.getAllItemsInfos();
+
+        if (!infos) {
+            res.status(404).json({message: "Il n'y a aucun produit disponible pour le moment."});
+        }
+
+        res.status(200).json(infos);
     })
 ;
 
